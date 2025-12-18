@@ -3,9 +3,11 @@ import { Mastra } from '@mastra/core/mastra';
 import { PinoLogger } from '@mastra/loggers';
 import { LibSQLStore } from '@mastra/libsql';
 import { homeHealthWorkflow } from './workflows/home-health-workflow';
+import { homeHealthAgent } from './agents/home-health-agent';
 
 export const mastra = new Mastra({
   workflows: { homeHealthWorkflow },
+  agents: { homeHealthAgent },
   storage: new LibSQLStore({
     // stores observability, scores, ... into memory storage, if it needs to persist, change to file:../mastra.db
     url: ":memory:",
