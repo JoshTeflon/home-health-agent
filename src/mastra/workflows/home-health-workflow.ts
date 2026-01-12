@@ -4,14 +4,23 @@ import { z } from 'zod';
 const identifySymptom = createStep({
   id: 'identify-symptom',
   description: 'Detects user symptom input and ensures it is mild.',
-  inputSchema: z.object({ symptom: z.string() }),
-  outputSchema: z.object({ symptom: z.string(), severity: z.string() }),
+  inputSchema: z.object({
+    symptom: z.string(),
+  }),
+  outputSchema: z.object({
+    symptom: z.string(),
+    severity: z.string(),
+  }),
   execute: async ({ inputData }) => {
     const text = inputData.symptom.toLowerCase();
     const mild = ["cough", "cold", "headache", "sore throat", "fatigue", "allergy"];
     const serious = ["chest pain", "bleeding", "seizure", "breathing", "fever", "unconscious"];
 
-    const severity = serious.some(k => text.includes(k)) ? "serious" : mild.some(k => text.includes(k)) ? "mild" : "unknown";
+    const severity = serious.some(k => text.includes(k))
+      ? "serious"
+      : mild.some(k => text.includes(k))
+      ? "mild"
+      : "unknown";
 
     return { symptom: inputData.symptom, severity };
   },
@@ -20,8 +29,13 @@ const identifySymptom = createStep({
 const getRemedy = createStep({
   id: 'get-remedy',
   description: 'Fetches remedy via HomeHealth agent',
-  inputSchema: z.object({ symptom: z.string(), severity: z.string() }),
-  outputSchema: z.object({ response: z.string() }),
+  inputSchema: z.object({
+    symptom: z.string(),
+    severity: z.string(),
+  }),
+  outputSchema: z.object({
+    response: z.string(),
+  }),
   execute: async ({ inputData, mastra }) => {
     const agent = mastra?.getAgent('homeHealthAgent');
     if (!agent) throw new Error('HomeHealth agent not found');
@@ -45,8 +59,12 @@ const getRemedy = createStep({
 
 export const homeHealthWorkflow = createWorkflow({
   id: 'health-workflow',
-  inputSchema: z.object({ symptom: z.string() }),
-  outputSchema: z.object({ response: z.string() }),
+  inputSchema: z.object({
+    symptom: z.string(),
+  }),
+  outputSchema: z.object({
+    response: z.string(),
+  }),
 })
   .then(identifySymptom)
   .then(getRemedy);

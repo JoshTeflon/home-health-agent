@@ -20,11 +20,17 @@ export const homeHealthAgent = new Agent({
   scorers: {
     safety: {
       scorer: scorers.safetyScorer,
-      sampling: { type: 'ratio', rate: 1 },
+      sampling: {
+        type: 'ratio',
+        rate: 1,
+      },
     },
     completeness: {
       scorer: scorers.completenessScorer,
-      sampling: { type: 'ratio', rate: 1 },
+      sampling: {
+        type: 'ratio',
+        rate: 1,
+      },
     },
   },
   memory: new Memory({
