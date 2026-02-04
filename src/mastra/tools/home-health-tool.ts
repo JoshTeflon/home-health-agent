@@ -17,6 +17,21 @@ const remediesData: Record<string, { remedy: string; instructions: string; safet
     instructions: "Mix half a teaspoon of salt in warm water and gargle 2-3 times daily.",
     safety: "Do not swallow the mixture.",
   },
+  "stomach ache": {
+    remedy: "Chamomile tea",
+    instructions: "Steep chamomile tea and drink it warm to soothe the stomach.",
+    safety: "Avoid if allergic to ragweed or related plants.",
+  },
+  "fatigue": {
+    remedy: "Balanced diet and hydration",
+    instructions: "Ensure regular meals with fruits, vegetables, and stay hydrated.",
+    safety: "Seek medical advice if fatigue persists.",
+  },
+  "allergy": {
+    remedy: "Local honey",
+    instructions: "Consuming local honey may help build tolerance to local allergens.",
+    safety: "Consult a doctor for severe allergies or reactions.",
+  },
 };
 
 export const remedyTool = createTool({
